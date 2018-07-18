@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="UrlPx" basedir="." default="all">
-    <property name="tomcat.home" value="D:/MDW_Programs/apache-tomcat-7.0.68"/>
-	<property name="tomcat.dir" value="D:D:/MDW_Programs/apache-tomcat-7.0.68/webapps" />
+    <property name="tomcat.home" value="D:/MDW_Programs/apache-tomcat-8.5.24"/>
+	<property name="tomcat.dir" value="D:/MDW_Programs/apache-tomcat-8.5.24/webapps" />
 	<property name="src.dir" value="${basedir}/src"/>
 	<property name="lib.dir" value="WEB-INF/lib"/>
 	<property name="built.dir" value="WEB-INF/classes"/>
