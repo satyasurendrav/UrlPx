@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="UrlPx" basedir="." default="all">
+    <property name="tomcat.home" value="D:/MDW_Programs/apache-tomcat-7.0.68"/>
+	<property name="tomcat.dir" value="D:D:/MDW_Programs/apache-tomcat-7.0.68/webapps" />
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="lib.dir" value="WEB-INF/lib"/>
+	<property name="built.dir" value="WEB-INF/classes"/>
+    <property name="warname" value="testurlpx.war"/> 
+	<property name="drop.location" value="${tomcat.home}/webapps"/>
+	
+	<path id="build.classpath">
+		<pathelement location="${built.dir}"/>
+		<pathelement location="${lib.dir}"/>
+		<fileset dir="${lib.dir}"> 
+			<include name="**/*.jar"/> 
+		</fileset> 
+		<fileset dir="${tomcat.home}/lib/"> 
+			<include name="**/*.jar"/> 
+		</fileset> 
+	</path>
+
+	<target name="init">
+		<delete dir="${built.dir}"/>
+		<mkdir dir="${built.dir}"/>
+	</target>
+
+	<target name="compile-px" depends="init">
+		<javac target="1.7" destdir="${built.dir}" includeAntRuntime="no" debug="on">
+			<src path="${src.dir}"/>
+			<classpath refid="build.classpath"/>
+		</javac>
+	</target>
+
+	<target name="package-px" depends="compile-px">
+		<delete file="${warname}"/>
+		<copy todir="${built.dir}" flatten="true">
+			<fileset dir="${basedir}" includes="log4j.xml,*.htm,*.js"/> 
+		</copy>
+    	<war destfile="${warname}" 
+    		basedir="" 
+    		excludes="**/src/**, build.xml, **/.settings/**, readme.txt, .classpath, .project, **/.externalToolBuilders/**, ${warname}" 
+    		webxml="WEB-INF/web.xml"> 
+			<!-- <classes dir="${built.dir}"></classes> this is resulting in duplicate files -->
+		</war> 
+	</target>
+	
+	<target name="deploy-px" depends="package-px">
+		<copy todir="${drop.location}" flatten="true">
+			<fileset dir="${basedir}" includes="${warname}"/>
+		</copy>
+	</target>
+
+	<target name="all" depends="clean,init, package-px,deploy-px"/>
+
+	<target name="clean">
+		<delete failonerror="false" includeEmptyDirs="true">
+			<fileset dir="${built.dir}"/>
+		</delete>
+	</target>
+</project>
