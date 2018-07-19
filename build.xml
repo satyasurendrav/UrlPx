@@ -7,7 +7,7 @@
 	<property name="built.dir" value="WEB-INF/classes"/>
     <property name="warname" value="testurlpx.war"/> 
 	<property name="drop.location" value="${tomcat.home}/webapps"/>
-	<!-- -->
+	<!--           this is  -->
 	<path id="build.classpath">
 		<pathelement location="${built.dir}"/>
 		<pathelement location="${lib.dir}"/>
